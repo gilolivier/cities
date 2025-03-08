@@ -59,7 +59,7 @@ export const InputField: FC<InputFieldInterface> = ({ placeholder }) => {
   const [suggestions, setSuggestions] = useState([]);
 
   const inputProps = {
-    className: "box-border border-1 w-150 block text-5xl cursor-auto p-2",
+    className: "box-border border-1 w-150 block text-5xl cursor-auto p-2 mt-0",
     placeholder,
     onChange: (e: React.SyntheticEvent) =>
       setInputVal((e.target as HTMLInputElement).value),
