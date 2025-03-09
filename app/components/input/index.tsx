@@ -48,9 +48,9 @@ const getCities = async ({
 };
 
 export const InputField: FC<InputFieldInterface> = ({ placeholder }) => {
-  const [inputVal, setInputVal] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
-  const [processingRequest, setProcessingRequest] = useState(false);
+  const [inputVal, setInputVal] = useState<string>("");
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [processingRequest, setProcessingRequest] = useState<boolean>(false);
 
   const inputProps = {
     className: "box-border border-1 w-150 block text-5xl cursor-auto p-2 mt-0",
