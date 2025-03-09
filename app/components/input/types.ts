@@ -7,4 +7,5 @@ export interface AutosuggestInputPropInterface {
   className: string;
   onChange: (e: React.SyntheticEvent) => void;
   value: string;
+  key?: string;
 }

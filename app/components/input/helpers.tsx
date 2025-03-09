@@ -96,14 +96,17 @@ export const renderSuggestion = (suggestion: string) => (
 export const renderInputComponent = (
   inputProps: AutosuggestInputPropInterface,
   processingRequest: boolean,
-) => (
-  <div className="flex-col flex-nowrap">
-    <input {...inputProps} />
-    {processingRequest ? (
-      <LoadingIcon /> // add loading icon component here
-    ) : null}
-  </div>
-);
+) => {
+  const { key, ...standardInputPorps } = inputProps;
+  return (
+    <div className="flex-col flex-nowrap">
+      <input {...standardInputPorps} key={key} />
+      {processingRequest ? (
+        <LoadingIcon /> // add loading icon component here
+      ) : null}
+    </div>
+  );
+};
 
 export const onSuggestionSelected = ({
   suggestionValue,
