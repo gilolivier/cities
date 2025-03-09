@@ -15,33 +15,10 @@ const getCities = async ({
   setSuggestions: (arg: string[]) => void;
   setProcessingRequest: (arg: boolean) => void;
 }) => {
+  // call our api and return the JSON list of data
   const options = {
     ...citySuggestionApiConfig.requestOptions,
-    body: JSON.stringify({
-      contents: [
-        {
-          parts: [
-            {
-              // [TODO] this prompt needs some serious refactoring and cleaning up
-              // 1. move to a config
-              // 2. clean up  the result from the LLM.
-              // 3. clean up empty results
-              // 4. tidy up the entire response and strip what we don't need
-              // 5. Move response formatting to use schema through the model config
-              // 6. cater for errors
-              // 7. sanitise user inputs
-              text: `Return a unique set of the 10 most relevant cities names in the world that contains the following word: ${value}. Do a simple string match comparaison.
-                Return the results in  JSON format: Return: Array<CityName>
-                Strip everything else from the response.
-                If there are no cities that match the prompt, return an empty array.`,
-            },
-          ],
-        },
-      ],
-      generationConfig: {
-        response_mime_type: "application/json",
-      },
-    }),
+    body: JSON.stringify(citySuggestionApiConfig.prompt({ value })),
   };
 
   try {
@@ -50,7 +27,19 @@ const getCities = async ({
       options,
     );
     const result = await response.json();
-    setSuggestions(JSON.parse(result.candidates[0].content.parts[0].text));
+    // [TODO] this is no pretty at all. Surely we can get the LLM to return the data in a much direct way.
+    const resultData = JSON.parse(
+      result?.candidates?.[0]?.content?.parts?.[0]?.text,
+    );
+    if (resultData) {
+      setSuggestions(
+        JSON.parse(result?.candidates?.[0]?.content?.parts?.[0]?.text),
+      );
+    } else {
+      // [TODO] something terrible has gone wrong here, handle this error
+      // set to empty for now!
+      setSuggestions([]);
+    }
     setProcessingRequest(false);
   } catch (error) {
     // [TODO] cater for errors here
@@ -91,7 +80,7 @@ export const InputField: FC<InputFieldInterface> = ({ placeholder }) => {
           <div className="flex-col flex-nowrap">
             <input {...inputProps} />
             {processingRequest ? (
-              <LoadingIcon /> // add loading icon comp here
+              <LoadingIcon /> // add loading icon component here
             ) : null}
           </div>
         )}
