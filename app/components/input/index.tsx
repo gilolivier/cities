@@ -10,6 +10,7 @@ import {
   getSuggestionValue,
   renderSuggestion,
   renderInputComponent,
+  onSuggestionSelected,
 } from "./helpers";
 
 export const InputField: FC<InputFieldInterface> = ({ placeholder }) => {
@@ -41,6 +42,7 @@ export const InputField: FC<InputFieldInterface> = ({ placeholder }) => {
         renderInputComponent={(inputPropsArg: AutosuggestInputPropInterface) =>
           renderInputComponent(inputPropsArg, processingRequest)
         }
+        onSuggestionSelected={onSuggestionSelected}
       />
     </>
   );

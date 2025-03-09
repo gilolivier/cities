@@ -1,6 +1,7 @@
 import { citySuggestionApiConfig } from "../../engine/api-config";
 import { LoadingIcon } from "../loading-icon";
 import { AutosuggestInputPropInterface } from "./types";
+import { RecommendationList } from "../recommendation-list";
 
 // call our api and return the JSON list of data
 export const getCities = async ({
@@ -103,3 +104,16 @@ export const renderInputComponent = (
     ) : null}
   </div>
 );
+
+export const onSuggestionSelected = ({
+  suggestionValue,
+}: {
+  suggestionValue: string;
+}) => {
+  // [TODO] render the list of recommendations based on suggestionValue value
+  // load the comp <RecommendationList />
+  // a few different ways to do this:
+  // 1. could set general context here and render RecommendationList higher up based on this value
+  // 2. could use a callback function here from parent component that would render the comp
+  console.log(suggestionValue);
+};
