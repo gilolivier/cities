@@ -26,6 +26,8 @@ The project uses npm 11.2.0 and node 22.14.0. Any combinations of fairly recent 
 
 ## Tech Debts
 
+- there's currently an error when selecting a suggestions. Talk about why and how to fix
+- tidy up Git history
 - RQ to facilate:
   - error management
   - throttling
