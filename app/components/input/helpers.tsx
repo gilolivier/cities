@@ -2,6 +2,7 @@ import { citySuggestionApiConfig } from "../../engine/api-config";
 import { LoadingIcon } from "../loading-icon";
 import { AutosuggestInputPropInterface } from "./types";
 
+// call our api and return the JSON list of data
 export const getCities = async ({
   value,
   setSuggestions,
@@ -11,7 +12,6 @@ export const getCities = async ({
   setSuggestions: (arg: string[]) => void;
   setProcessingRequest: (arg: boolean) => void;
 }) => {
-  // call our api and return the JSON list of data
   const options = {
     ...citySuggestionApiConfig.requestOptions,
     body: JSON.stringify(citySuggestionApiConfig.prompt({ value })),
@@ -43,6 +43,8 @@ export const getCities = async ({
   }
 };
 
+// calculate the standard props for the input field
+// passed to the autosuggest comp
 export const resolveInputProps = ({
   placeholder,
   inputVal,
@@ -59,6 +61,8 @@ export const resolveInputProps = ({
   value: inputVal,
 });
 
+// when the autosuggest comp detects a change
+// call the fn to get the list of cities
 export const onSuggestionsFetchRequested = ({
   setProcessingRequest,
   value,
@@ -87,6 +91,7 @@ export const renderSuggestion = (suggestion: string) => (
   <span>{suggestion}</span>
 );
 
+// specific rendering for the input comp
 export const renderInputComponent = (
   inputProps: AutosuggestInputPropInterface,
   processingRequest: boolean,
